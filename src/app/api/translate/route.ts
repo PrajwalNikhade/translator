@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/app/lib/mongo"
 import Translation from "@/app/models/Translation";
-import { hfjson } from "@/app/lib/Hugging_Face";
+import { hfJSON } from "@/app/lib/Hugging_Face";
 import { detectISO1, safeLang } from "@/app/lib/lang";
 import { z } from "zod";
 
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     const src = safeLang(detected, "en");
     const tgt = safeLang(tgtLang, "hi");
     const started = Date.now();
-    const data = await hfjson(modelId, {
+    const data = await hfJSON(modelId, {
       inputs: text,
       parameters: { srcLang: src, tgtLang: tgt }
     })

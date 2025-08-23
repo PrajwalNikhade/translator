@@ -140,7 +140,7 @@ const Languages = () => {
 
   const filteredLanguages = languages.filter(lang => {
     const matchesSearch = lang.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         lang.native.toLowerCase().includes(searchTerm.toLowerCase());
+      lang.native.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || lang.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -159,7 +159,7 @@ const Languages = () => {
               At Your Fingertips
             </h1>
             <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-              Connect with the world through our comprehensive language support. 
+              Connect with the world through our comprehensive language support.
               From the most spoken languages to rare dialects, we've got you covered.
             </p>
           </div>
@@ -202,7 +202,7 @@ const Languages = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
               Browse Our Languages
             </h2>
-            
+
             {/* Search and Filter */}
             <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-8">
               <div className="relative">
@@ -215,17 +215,16 @@ const Languages = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              
+
               <div className="flex gap-2 flex-wrap">
                 {languageCategories.map(category => (
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`px-4 py-2 rounded-full font-medium transition-all duration-200 ${
-                      selectedCategory === category.id
-                        ? 'bg-blue-500 text-white shadow-lg'
-                        : 'bg-white text-gray-700 hover:bg-gray-100'
-                    }`}
+                    className={`px-4 py-2 rounded-full font-medium transition-all duration-200 ${selectedCategory === category.id
+                      ? 'bg-blue-500 text-white shadow-lg'
+                      : 'bg-white text-gray-700 hover:bg-gray-100'
+                      }`}
                   >
                     {category.name} ({category.count})
                   </button>
@@ -256,14 +255,14 @@ const Languages = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">
                   {language.name}
                 </h3>
                 <p className="text-gray-600 mb-3">
                   {language.native}
                 </p>
-                
+
                 <div className="flex items-center justify-between text-sm text-gray-500">
                   <div className="flex items-center">
                     <Users className="h-4 w-4 mr-1" />
@@ -298,7 +297,7 @@ const Languages = () => {
             Don't See Your Language?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            We're constantly adding new languages and improving our existing ones. 
+            We're constantly adding new languages and improving our existing ones.
             Let us know what languages you need most.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -311,6 +310,8 @@ const Languages = () => {
           </div>
         </div>
       </section>
+
+
     </div>
   );
 };

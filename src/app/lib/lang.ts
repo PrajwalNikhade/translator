@@ -1,11 +1,11 @@
 import { franc } from "franc";
-import langs from "langs";
+import Languages from "../languages/page";
 
 // Convert ISO-639-3 -> ISO-639-1 if possible (m2m100 uses 2-letter codes)
 export function detectISO1(text: string): string | null {
     const iso3 = franc(text || "", { minLength: 10 });   // returns 'und' if unknown
     if (!iso3 || iso3 === "und") return null;
-    const match = langs.where("3", iso3);
+    const match = Languages().filter((lang: any) => lang["3"] === iso3)[0];
     return match?.["1"] || null; // e.g., 'eng'->'en', 'hin'->'hi'
 }
 

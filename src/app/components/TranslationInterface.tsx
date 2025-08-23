@@ -21,23 +21,29 @@ export default function TranslationInterface() {
     setTranslatedText('');
 
     try {
-      // Using MyMemory Translation API (free, no API key required)
-      const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-          inputText
-        )}&langpair=${sourceLanguage}|${targetLanguage}`
-      );
+      // Using local Translation API
+      const response = await fetch('/api/translate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: inputText,
+          srcLang: sourceLanguage,
+          tgtLang: targetLanguage,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error('Translation service unavailable');
       }
 
       const data = await response.json();
-      
-      if (data.responseStatus === 200) {
-        setTranslatedText(data.responseData.translatedText);
+
+      if (data.result) {
+        setTranslatedText(data.result);
       } else {
-        throw new Error(data.responseDetails || 'Translation failed');
+        throw new Error(data.error || 'Translation failed');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Translation failed. Please try again.');
