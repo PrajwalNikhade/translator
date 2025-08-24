@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import TranslationInterface from './components/TranslationInterface';
 import { languages } from './lib/languages';
-
+import FileUpload from './components/FileUpload';
+import Voice from './components/Voice';
 export default function LanguageTranslator() {
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
@@ -27,15 +28,15 @@ export default function LanguageTranslator() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           text: inputText,
-          source: sourceLanguage,
-          target: targetLanguage,
+          srcLang: sourceLanguage,  // Changed from 'source'
+          tgtLang: targetLanguage,  // Changed from 'target'
         }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setTranslatedText(data.translatedText);
+        setTranslatedText(data.result);  // Changed from data.translatedText
       } else {
         throw new Error(data.error || 'Translation failed');
       }
@@ -99,6 +100,15 @@ export default function LanguageTranslator() {
         copyToClipboard={copyToClipboard}
         languages={languages}
       />
+      <FileUpload
+        onFileSelect={async (file: File) => {
+          const text = await file.text();
+          setInputText(text);
+        }}
+        acceptedTypes={['text/plain']}
+        maxSize={10}
+      />
+      <Voice/>
     </div>
   );
 }
